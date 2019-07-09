@@ -1,0 +1,26 @@
+{
+  "name": "buy-api",
+  "version": "0.0.1",
+  "description": "buyAPI poc",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "poc",
+    "api",
+    "restify"
+  ],
+  "author": "yokodev",
+  "license": "MIT",
+  "dependencies": {
+    "mongoose": "^5.6.4",
+    "mongoose-timestamp": "^0.6.0",
+    "restify": "^8.3.3",
+    "restify-errors": "^8.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
