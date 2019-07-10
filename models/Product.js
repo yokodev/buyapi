@@ -5,8 +5,9 @@ const productSchema = new mongoose.Schema({
   name:{
     type: String,
     required: [true, "Can't be blank"],
-    index: true,
-    trim: true
+    unique:true,
+    trim: true,
+    minlength:5
   },
   quantity:{
     type: Number,

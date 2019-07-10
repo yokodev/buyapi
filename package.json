@@ -15,10 +15,13 @@
   "author": "yokodev",
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.4",
     "mongoose-unique-validator": "^2.0.3",
     "restify": "^8.3.3",
-    "restify-errors": "^8.0.0"
+    "restify-errors": "^8.0.0",
+    "restify-jwt-community": "^1.0.13"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"

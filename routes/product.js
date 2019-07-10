@@ -4,7 +4,7 @@ const Product = require('../models/Product')
 module.exports = server =>{
 
   //GET ALL
-  server.get('/products/all', async (req, res, next)=>{
+  server.get('/products', async (req, res, next)=>{
     try {
       const products = await Product.find({})
       res.send(products)
@@ -26,7 +26,7 @@ module.exports = server =>{
   })
   
   //Create Product 
-  server.post('/products/new', async (req, res, next)=>{
+  server.post('/products', async (req, res, next)=>{
     //Check if the content is correct
     if(!req.is('application/json'))
     return next(new errors.InvalidContentError("Expects 'application/json'") )
@@ -44,7 +44,7 @@ module.exports = server =>{
     }
   })
   //Update Product 
-    server.put('/products/update/:id', async (req, res, next)=>{
+    server.put('/products/:id', async (req, res, next)=>{
       //Check if the content is correct
       if(!req.is('application/json'))
       return next(new errors.InvalidContentError("Expects 'application/json'") )
