@@ -1,10 +1,11 @@
 const mongoose = require('mongoose')
-const timestamp = require('mongoose-timestamp')
+var uniqueValidator = require('mongoose-unique-validator');
 
 const productSchema = new mongoose.Schema({
   name:{
     type: String,
-    required: true,
+    required: [true, "Can't be blank"],
+    index: true,
     trim: true
   },
   quantity:{
@@ -22,8 +23,9 @@ const productSchema = new mongoose.Schema({
     required: false,
   },
 
-})
+}, { timestamps: true })
 
-  productSchema.plugin(timestamp)
+  productSchema.plugin(uniqueValidator)
+
   const Product = mongoose.model('Product', productSchema)
   module.exports = Product
