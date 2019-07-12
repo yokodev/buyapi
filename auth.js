@@ -1,17 +1,17 @@
 const bcrypt = require('bcryptjs')
-const mongoose = require('mongoose')
+// const mongoose = require('mongoose')
 const User = require('./models/User')
 
-exports.authenticate = (username, password) =>{
-  return new Promise(async (resolve, reject)=>{
+exports.authenticate = (username, password) => {
+  return new Promise(async (resolve, reject) => {
     try {
-      const user = await User.findOne({username})
+      const user = await User.findOne({ username })
       //Match password
-      bcrypt.compare(password, user.password, (err, isMatch)=>{
-        if(err) throw err
-        if(isMatch){
+      bcrypt.compare(password, user.password, (err, isMatch) => {
+        if (err) throw err
+        if (isMatch) {
           resolve(user)
-        }else{
+        } else {
           // Pass didn't match
           reject('Authentication Failed')
         }

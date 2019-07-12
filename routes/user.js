@@ -1,6 +1,10 @@
 const errors = require('restify-errors')
 const User = require('../models/User')
 const bcrypt = require('bcryptjs')
+const auth = require('../auth')
+const jwt = require('jsonwebtoken')
+const config = require('../config')
+
 
 module.exports = server =>{
 
@@ -13,7 +17,7 @@ module.exports = server =>{
       return new errors.InvalidContentError(err)
     }
   })
-  // CREATE USER
+  // Create user
   server.post('/users', async (req, res, next)=>{
     if(!req.is('application/json') )
        return next(new errors.InvalidArgumentError(`Content is not application/json`))
@@ -33,7 +37,7 @@ module.exports = server =>{
          })
        })
    })
-  
+  //delete user
   server.del('/users/:id', async (req, res, next) => {
     try {
       const deleted =await User.findOneAndDelete({_id:req.params.id})
@@ -42,5 +46,28 @@ module.exports = server =>{
     } catch (error) {
       return next(new errors.InvalidArgumentError(`User not found`))
     }
+  })
+  //auth user
+  server.post('/auth', async (req, res, next)=>{
+    if(!req.is('application/json')){
+      return new errors.InvalidContentError("content has to be 'application/json'")
+    }else{
+      const {username, password } = req.body
+
+      try {
+        const user = await auth.authenticate(username,password)
+
+        const token = jwt.sign(user.toJSON(), config.JWT_SECRET, { expiresIn: '10m' })
+
+        const {iat, exp } = jwt.decode(token)
+
+        res.send({ iat,exp,token })
+        // console.log(user)
+        next()
+      } catch (err) {
+        return next(new errors.UnauthorizedError(err))
+      }
+    }
+
   })
 }
