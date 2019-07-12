@@ -21,16 +21,16 @@ module.exports = server =>{
   server.post('/users', async (req, res, next)=>{
     if(!req.is('application/json') )
        return next(new errors.InvalidArgumentError(`Content is not application/json`))
-       const { username, password } = req.body
+       const { username, password, admin } = req.body
        
-       const user = new User({ username , password })
+       const user = new User({ username , password, admin })
        bcrypt.genSalt(10, (error, salt)=>{
          bcrypt.hash(user.password, salt, async (err, hash) =>{
            user.password = hash
            try {
              const newUser = await user.save()
              res.send(201,{guardado:newUser})
-             next()
+             return next()
            } catch (err) {
              return next(new errors.InternalError(`error, ${error} `))
            }
@@ -52,7 +52,10 @@ module.exports = server =>{
     if(!req.is('application/json')){
       return new errors.InvalidContentError("content has to be 'application/json'")
     }else{
-      const {username, password } = req.body
+      const {username ="", password="" } = req.body
+      // console.log(`usery pass `,username, password)
+      // if(!username || !password)
+      //   return next(new errors.InvalidArgumentError(`Check your Password and or Username`))
 
       try {
         const user = await auth.authenticate(username,password)

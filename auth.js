@@ -6,6 +6,7 @@ exports.authenticate = (username, password) => {
   return new Promise(async (resolve, reject) => {
     try {
       const user = await User.findOne({ username })
+      // console.log(`en auth`,user)
       //Match password
       bcrypt.compare(password, user.password, (err, isMatch) => {
         if (err) throw err

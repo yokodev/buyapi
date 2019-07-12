@@ -1,0 +1,169 @@
+{
+	"info": {
+		"_postman_id": "c35d2e1c-d7d2-44ea-9246-05d08fdf17eb",
+		"name": "snacks",
+		"description": "snacks collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "/products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						},
+						"description": "Get all Products"
+					},
+					"response": []
+				},
+				{
+					"name": "/products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						},
+						"description": "Add Products"
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:3000/products/5d26144f711afe0ffbf6f148",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/products/5d26144f711afe0ffbf6f148",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"5d26144f711afe0ffbf6f148"
+							]
+						},
+						"description": "Delete a Product"
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:3000/products/5d26401c94f8303181c4e8d3",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"cornflakes\"\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/products/5d26401c94f8303181c4e8d3",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"5d26401c94f8303181c4e8d3"
+							]
+						},
+						"description": "Update a procuct"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "/auth",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/auth",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth"
+							]
+						},
+						"description": "Making auth request"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "transaction",
+			"item": []
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "localhost:3000/users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/users",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:3000/users",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\":\"yokodev\",\n\t\"password\": \"12345\"\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/users",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						},
+						"description": "Create Users"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
