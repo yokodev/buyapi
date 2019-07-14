@@ -11,17 +11,17 @@ const productSchema = new mongoose.Schema({
   },
   quantity:{
     type: Number,
-    default:0 
+    default:0,
+    min:0
   },
   price:{
     type: Number,
-    required: [true, "Price is required"],
-
+    min:0
   },
   likes:{
     type: Number,
-    required: false,
-    default: 0
+    default: 0,
+    min:0
   },
 
 }, { timestamps: true })
