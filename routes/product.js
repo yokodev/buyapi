@@ -100,16 +100,25 @@ module.exports = server => {
     if (!req.user.admin)
       return next(new errors.UnauthorizedError(`Only Admin is able to modify price`))
     checkContext(req, next)
+
+    const dataToUpdate = {
+      $set: {
+        'price': req.body.price,
+        'priceUpdated.NewPrice': req.body.price,
+        'priceUpdated.lastUpdated': Date.now()
+      }
+    }
     try {
       const productUpdated = await Product.findOneAndUpdate(
         { _id: req.params.id },
-        { price: req.body.price },
-        { new: true }
+        // { price: req.body.price },
+        dataToUpdate,
+        {upsert:true, new: true }
       )
       res.send(200, { updated: productUpdated })
       return next()
     } catch (err) {
-      return next(new errors.NotFoundError(`Item was not found `))
+      return next(new errors.NotFoundError(`Item was not found ${err}`))
     }
   })
   //Delete Product 

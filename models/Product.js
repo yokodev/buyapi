@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator');
 
+const priceUpdate = new mongoose.Schema({
+  NewPrice: Number,
+  lastUpdated: Date
+})
 const productSchema = new mongoose.Schema({
   name:{
     type: String,
@@ -18,6 +22,7 @@ const productSchema = new mongoose.Schema({
     type: Number,
     min:0
   },
+  priceUpdated:[priceUpdate],
   likes:{
     type: Number,
     default: 0,
