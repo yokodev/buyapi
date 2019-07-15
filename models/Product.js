@@ -1,26 +1,32 @@
 const mongoose = require('mongoose')
-var uniqueValidator = require('mongoose-unique-validator');
+const uniqueValidator = require('mongoose-unique-validator');
 
+const priceUpdate = new mongoose.Schema({
+  NewPrice: Number,
+  lastUpdated: Date
+})
 const productSchema = new mongoose.Schema({
   name:{
     type: String,
     required: [true, "Can't be blank"],
-    index: true,
-    trim: true
+    unique:true,
+    trim: true,
+    minlength:5
   },
   quantity:{
     type: Number,
-    required: true,
-    
+    default:0,
+    min:0
   },
   price:{
     type: Number,
-    required: true,
-
+    min:0
   },
+  priceUpdated:[priceUpdate],
   likes:{
     type: Number,
-    required: false,
+    default: 0,
+    min:0
   },
 
 }, { timestamps: true })
