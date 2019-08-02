@@ -1,20 +1,16 @@
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 
-
 const TransactionSchema = new mongoose.Schema({
-  buyer: {
+  username: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
   },
-  product: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Product',
-    required: true
-  },
   quantity: {
-    type: Number, default: 1
+    type: Number, 
+    default: 1, 
+    min:0
   },
   dateOfPurchase: {
     type: Date,
@@ -22,8 +18,5 @@ const TransactionSchema = new mongoose.Schema({
   }
 })
 
-
-
-
 const Transaction = mongoose.model('Transaction', TransactionSchema)
-module.exports = Transaction 
+module.exports = {Transaction, TransactionSchema} 

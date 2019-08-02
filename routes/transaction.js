@@ -1,4 +1,5 @@
 const Transaction = require('../models/Transaction')
+const Product  = require('../models/Product')
 const mongoose = require('mongoose')
 const errors = require('restify-errors')
 const rjwt = require('restify-jwt-community')
@@ -22,16 +23,16 @@ module.exports = server => {
   // server.post('/transactions', rjwt({ secret: config.JWT_SECRET }), async (req, res, next) => {
   server.post('/transactions', async (req, res, next) => {
     checkContext(req, next)
-    // checkIfAdmin(req, next, `Only Admin is able to add products`)
-    const { username, quantity, productId } = req.body
-    const transaction =  new Transaction({
-      buyer: username, product:productId, quantity })
-
-    await transaction.validate((err) => err && next(new errors.InvalidArgumentError(err.message)))
-
+    const {username, productid, quantity } = req.body
+    
     try {
-      const newTransact = await transaction.save()
-      res.send(201, { newTransact: newTransact })
+      const productToUpdate = await Product.findById(productid)
+      productToUpdate.transactions.push({username, quantity})
+      await productToUpdate.validate(
+        (err) => err && next(new errors.InvalidArgumentError(err.message)))
+    
+      await productToUpdate.save()
+      res.send(201, { newTransact: productToUpdate })
       next()
     } catch (err) {
       return next(new errors.InternalError(err.message))

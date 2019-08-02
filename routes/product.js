@@ -17,7 +17,7 @@ module.exports = server => {
     name ? qStrg.name = { name } : qStrg.name = {}
     try {
       const products = await Product.find(qStrg.name,'-__v -createdAt -updatedAt').sort(qStrg.sortBy)
-      res.send(products)
+      res.send({ count: products.length, products:products})
       next();
     } catch (error) {
       return next(new errors.InvalidContentError(error))
@@ -34,8 +34,9 @@ module.exports = server => {
     }
   })
   //Create a Product 
-  server.post('/products', rjwt({ secret: config.JWT_SECRET }), async (req, res, next) => {
-    checkIfAdmin(req, next, `Only Admin is able to add products` )
+  // server.post('/products', rjwt({ secret: config.JWT_SECRET }), async (req, res, next) => {
+  server.post('/products', /* rjwt({ secret: config.JWT_SECRET }), */ async (req, res, next) => {
+    // checkIfAdmin(req, next, `Only Admin is able to add products` )
     checkContext(req, next)
     const { name, quantity, price, likes } = req.body
     const singleProduct = new Product({ name, quantity, price, likes })
@@ -100,8 +101,8 @@ module.exports = server => {
     
   })
   //Delete Product 
-  server.del('/products/:id', rjwt({ secret: config.JWT_SECRET }) ,async (req, res, next) => {
-    checkIfAdmin(req, next, `Only Admin is able to delete products`)
+  server.del('/products/:id'/* , rjwt({ secret: config.JWT_SECRET }) */ ,async (req, res, next) => {
+    // checkIfAdmin(req, next, `Only Admin is able to delete products`)
     try {
       const productDeleted = await Product.findOneAndDelete({ _id: req.params.id })
       res.send(204, { deleted: productDeleted })

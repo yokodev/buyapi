@@ -24,7 +24,9 @@ module.exports = server => {
       return next(new errors.InvalidArgumentError('Username and Password are required'))
 
     const user = new User({ username, password, admin })
-    await user.validate((err) => next(new errors.InvalidArgumentError(err.message)))
+    await user.validate(err =>
+      err ? next(new errors.InvalidArgumentError(err.message)) : next()
+    )
 
     bcrypt.genSalt(10, (error, salt) => {
       bcrypt.hash(user.password, salt, async (err, hash) => {
