@@ -2,36 +2,37 @@ const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator');
 
 const priceUpdate = new mongoose.Schema({
-  NewPrice: Number,
+  oldPrice: Number,
+  newPrice: Number,
   lastUpdated: Date
 })
 const productSchema = new mongoose.Schema({
-  name:{
+  name: {
     type: String,
     required: [true, "Can't be blank"],
-    unique:true,
+    unique: true,
     trim: true,
-    minlength:5
+    minlength: 5
   },
-  quantity:{
-    type: Number,
-    default:0,
-    min:0
-  },
-  price:{
-    type: Number,
-    min:0
-  },
-  priceUpdated:[priceUpdate],
-  likes:{
+  quantity: {
     type: Number,
     default: 0,
-    min:0
+    min: 0
+  },
+  price: {
+    type: Number,
+    min: 0
+  },
+  priceUpdates: [priceUpdate],
+  likes: {
+    type: Number,
+    default: 0,
+    min: 0
   },
 
 }, { timestamps: true })
 
-  productSchema.plugin(uniqueValidator)
+productSchema.plugin(uniqueValidator)
 
-  const Product = mongoose.model('Product', productSchema)
-  module.exports = Product
+const Product = mongoose.model('Product', productSchema)
+module.exports = Product

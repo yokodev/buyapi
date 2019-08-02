@@ -10,7 +10,7 @@ server.use(restify.plugins.bodyParser())
 server.use(restify.plugins.queryParser({ mapParams: false }))
 
 //Routes
-server.use(rjwt({ secret: config.JWT_SECRET }).unless({path:['/auth','/products','/users']}))
+server.use(rjwt({ secret: config.JWT_SECRET }).unless({ path: ['/auth', '/products', '/users', '/transactions']}))
 
 server.listen(config.PORT, ()=>{
   mongoose
@@ -28,5 +28,6 @@ db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', () =>{
   require('./routes/product')(server)
   require('./routes/user')(server)
+  require('./routes/transaction')(server)
   console.log(`server started on por ${config.PORT}`)
 })
